@@ -216,35 +216,35 @@ function HeroSection() {
         <div className="absolute bottom-0 left-0 right-0 pb-10 md:pb-20 px-6 text-center">
 
           {/* Big centered logo + title stacked above headline */}
-          <div className="flex flex-col items-center mb-5">
+          <div className="flex flex-col items-center mb-2 md:mb-5">
             <Image
               src="/logo.png"
               alt="Ready For School Peru"
               width={150}
               height={82}
-              className="object-contain drop-shadow-2xl"
+              className="object-contain drop-shadow-2xl w-24 md:w-[150px]"
               priority
             />
-            <span className="font-bebas text-white text-2xl md:text-3xl tracking-widest drop-shadow-lg mt-2 leading-none">
+            <span className="font-bebas text-white text-xl md:text-3xl tracking-widest drop-shadow-lg mt-1 md:mt-2 leading-none">
               READY FOR SCHOOL
             </span>
-            <span className="font-bebas text-amber-400 text-4xl md:text-5xl tracking-widest drop-shadow-lg -mt-1 leading-none">
+            <span className="font-bebas text-amber-400 text-3xl md:text-5xl tracking-widest drop-shadow-lg -mt-1 leading-none">
               PERU
             </span>
           </div>
 
-          <span className="inline-block font-montserrat text-sm font-bold text-amber-400 uppercase tracking-[0.3em] mb-3 drop-shadow">
+          <span className="inline-block font-montserrat text-xs md:text-sm font-bold text-amber-400 uppercase tracking-[0.3em] mb-1 md:mb-3 drop-shadow">
             April 2026 Campaign
           </span>
-          <h1 className="font-bebas text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-white leading-none drop-shadow-lg">
+          <h1 className="font-bebas text-3xl sm:text-5xl md:text-7xl lg:text-8xl text-white leading-none drop-shadow-lg">
             HELP US PUT A BOOK IN<br className="hidden sm:block" /> A CHILD&apos;S HANDS
           </h1>
-          <p className="font-montserrat text-white/85 text-base md:text-lg max-w-2xl mx-auto mt-3 drop-shadow">
+          <p className="hidden sm:block font-montserrat text-white/85 text-base md:text-lg max-w-2xl mx-auto mt-3 drop-shadow">
             In many rural communities, children have never owned a single book.
           </p>
 
           {/* Scroll arrow */}
-          <div className="mt-8 flex justify-center">
+          <div className="mt-4 md:mt-8 flex justify-center">
             <button
               onClick={scrollToDonate}
               className="scroll-arrow w-12 h-12 rounded-full bg-amber-400 hover:bg-amber-500 flex items-center justify-center shadow-xl shadow-amber-400/30 transition-colors duration-200"
