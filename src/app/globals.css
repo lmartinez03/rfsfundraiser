@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Ticker banner scroll ─── */
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.ticker-track {
+  display: inline-block;
+  white-space: nowrap;
+  animation: ticker-scroll 35s linear infinite;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+/* ─── Scroll reveal ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Scroll arrow bounce ─── */
+@keyframes bounce-arrow {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(10px); }
+}
+
+.scroll-arrow {
+  animation: bounce-arrow 1.8s ease-in-out infinite;
+}
+
+/* ─── Donate button pulse ─── */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.5); }
+  50%       { box-shadow: 0 0 0 14px rgba(251, 191, 36, 0); }
+}
+
+.donate-pulse {
+  animation: pulse-glow 2.5s ease-in-out infinite;
+}
+
+/* ─── FAQ accordion transition ─── */
+.faq-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out, padding 0.3s ease-out;
+}
+
+.faq-body.open {
+  max-height: 400px;
+}
+
+/* ─── Tab slide transition ─── */
+.tab-content {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.tab-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Full-screen menu overlay ─── */
+.menu-overlay {
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+}
+
+/* ─── Custom scrollbar ─── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #1e3414; }
+::-webkit-scrollbar-thumb { background: #f59e0b; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #fbbf24; }
+
+/* ─── Selection color ─── */
+::selection {
+  background: #f59e0b;
+  color: #172c10;
+}
+
+/* ─── Progress bar fill animation ─── */
+@keyframes progress-fill {
+  from { width: 0%; }
+  to   { width: var(--progress-width); }
+}
+
+.progress-bar-fill {
+  animation: progress-fill 1.5s ease-out forwards;
+}
+
+/* ─── Step card hover ─── */
+.step-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.step-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(245, 158, 11, 0.12);
+}
+
+/* ─── Social card hover ─── */
+.social-card {
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.social-card:hover {
+  transform: translateX(4px);
+}
