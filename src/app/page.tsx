@@ -725,6 +725,13 @@ function WhyHowWhereSection() {
   return (
     <section className="bg-forest-dark py-20 md:py-28">
       <div className="max-w-5xl mx-auto px-6 lg:px-10">
+        {/* Preload all tab photos so switching is instant */}
+        <div className="hidden" aria-hidden="true">
+          <Image src="/images/why.JPG" alt="" width={500} height={375} quality={95} />
+          <Image src="/images/how.JPG" alt="" width={500} height={375} quality={95} />
+          <Image src="/images/where.png" alt="" width={500} height={375} quality={95} />
+        </div>
+
         {/* Tab buttons */}
         <div className="flex justify-center gap-3 mb-14 flex-wrap">
           {(['WHY', 'HOW', 'WHERE'] as const).map((tab) => (
