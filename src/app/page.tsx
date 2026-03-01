@@ -163,14 +163,14 @@ function HeroSection() {
 
   return (
     <section id="home" className="relative">
-      <div className="relative">
-        {/* Top photo — full width, natural aspect ratio */}
+      <div className="relative min-h-[520px] md:min-h-[680px]">
+        {/* Top photo — fills container */}
         <Image
           src="/images/RFSTopPhoto.png"
-          width={1920}
-          height={768}
+          fill
           alt="Children walking to school in Peru with Machu Picchu in the background"
-          className="w-full h-auto block"
+          className="object-cover object-center"
+          sizes="100vw"
           priority
         />
 
@@ -213,7 +213,7 @@ function HeroSection() {
         </div>
 
         {/* ── Headline + logo overlaid at bottom ── */}
-        <div className="absolute bottom-0 left-0 right-0 pb-20 px-6 text-center">
+        <div className="absolute bottom-0 left-0 right-0 pb-10 md:pb-20 px-6 text-center">
 
           {/* Big centered logo + title stacked above headline */}
           <div className="flex flex-col items-center mb-5">
