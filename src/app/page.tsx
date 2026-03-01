@@ -213,7 +213,7 @@ function HeroSection() {
         </div>
 
         {/* ── Headline + logo overlaid at bottom ── */}
-        <div className="absolute bottom-0 left-0 right-0 pb-16 px-6 text-center">
+        <div className="absolute bottom-0 left-0 right-0 pb-6 px-6 text-center">
 
           {/* Big centered logo + title stacked above headline */}
           <div className="flex flex-col items-center mb-5">
