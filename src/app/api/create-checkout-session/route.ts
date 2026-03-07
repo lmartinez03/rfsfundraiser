@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
             price_data: {
               currency: 'usd',
               product_data: {
-                name: 'Monthly Donation — Help Us Put a Book in a Child\'s Hands',
+                name: 'April 2026 Campaign Donation — Monthly',
                 description:
                   'Your monthly gift helps provide books and backpacks to children in rural Peru.',
               },
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
             price_data: {
               currency: 'usd',
               product_data: {
-                name: 'Donation — Help Us Put a Book in a Child\'s Hands',
+                name: 'April 2026 Campaign Donation',
                 description:
                   'Your gift provides books and backpacks to children in rural Peru who need them most.',
               },

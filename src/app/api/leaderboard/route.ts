@@ -38,6 +38,7 @@ export async function GET() {
 
     let totalRaised = 0
     const donorMap = new Map<string, number>()
+    const displayMap = new Map<string, string>()
     const messageMap = new Map<string, string>()
 
     for (const session of sessions.data.filter(
@@ -47,10 +48,13 @@ export async function GET() {
       totalRaised += amount
 
       const name = session.metadata?.donor_name || 'Anonymous'
-      donorMap.set(name, (donorMap.get(name) || 0) + amount)
+      // Anonymous donors each get a unique key so they appear separately
+      const key = name === 'Anonymous' ? `__anon_${session.id}` : name
+      donorMap.set(key, (donorMap.get(key) || 0) + amount)
+      displayMap.set(key, name)
 
-      if (!messageMap.has(name) && session.metadata?.donor_message) {
-        messageMap.set(name, session.metadata.donor_message)
+      if (!messageMap.has(key) && session.metadata?.donor_message) {
+        messageMap.set(key, session.metadata.donor_message)
       }
     }
 
@@ -58,11 +62,11 @@ export async function GET() {
     const donors: DonorEntry[] = Array.from(donorMap.entries())
       .sort((a, b) => b[1] - a[1])
       .slice(0, 10)
-      .map(([name, amount], index) => ({
-        name,
+      .map(([key, amount], index) => ({
+        name: displayMap.get(key) || key,
         amount,
         rank: index + 1,
-        message: messageMap.get(name),
+        message: messageMap.get(key),
       }))
 
     const data: CacheData = {

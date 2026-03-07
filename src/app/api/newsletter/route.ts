@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
           [
             new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }),
             email,
-            'RFS April 2026 Campaign',
+            'Newsletter',
           ],
         ],
       },
