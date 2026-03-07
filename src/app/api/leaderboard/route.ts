@@ -33,8 +33,8 @@ export async function GET() {
       apiVersion: '2024-06-20',
     })
 
-    // List recent sessions and filter for this campaign client-side
-    const sessions = await stripe.checkout.sessions.list({ limit: 100 })
+    // List recent sessions, expanding payment_intent to read its metadata too
+    const sessions = await stripe.checkout.sessions.list({ limit: 100, expand: ['data.payment_intent'] })
 
     let totalRaised = 0
     const donorMap = new Map<string, number>()
@@ -47,7 +47,8 @@ export async function GET() {
       const amount = (session.amount_total || 0) / 100
       totalRaised += amount
 
-      const name = session.metadata?.donor_name || 'Anonymous'
+      const pi = typeof session.payment_intent === 'object' ? session.payment_intent as Stripe.PaymentIntent : null
+      const name = session.metadata?.donor_name || pi?.metadata?.donor_name || 'Anonymous'
       // Anonymous donors each get a unique key so they appear separately
       const key = name === 'Anonymous' ? `__anon_${session.id}` : name
       donorMap.set(key, (donorMap.get(key) || 0) + amount)
