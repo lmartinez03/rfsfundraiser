@@ -73,6 +73,7 @@ export async function POST(request: NextRequest) {
         success_url: `${baseUrl}/?donation=success`,
         cancel_url: `${baseUrl}/#donate`,
         metadata,
+        payment_intent_data: { metadata },
       })
 
       return NextResponse.json({ sessionId: session.id })
