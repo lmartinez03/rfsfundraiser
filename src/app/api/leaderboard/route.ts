@@ -47,8 +47,11 @@ export async function GET() {
       const amount = (session.amount_total || 0) / 100
       totalRaised += amount
 
-      const pi = typeof session.payment_intent === 'object' ? session.payment_intent as Stripe.PaymentIntent : null
-      const name = session.metadata?.donor_name || pi?.metadata?.donor_name || 'Anonymous'
+      const pi = session.payment_intent && typeof session.payment_intent === 'object' ? session.payment_intent as Stripe.PaymentIntent : null
+      const sessionName = session.metadata?.donor_name
+      const piName = pi?.metadata?.donor_name
+      // Prefer PI name so edits in Stripe dashboard take effect; fall back to session name, then Anonymous
+      const name = (piName && piName !== 'Anonymous' ? piName : null) || (sessionName && sessionName !== 'Anonymous' ? sessionName : null) || 'Anonymous'
       // Anonymous donors each get a unique key so they appear separately
       const key = name === 'Anonymous' ? `__anon_${session.id}` : name
       donorMap.set(key, (donorMap.get(key) || 0) + amount)
