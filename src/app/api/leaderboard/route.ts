@@ -41,9 +41,12 @@ export async function GET() {
     const displayMap = new Map<string, string>()
     const messageMap = new Map<string, string>()
 
-    for (const session of sessions.data.filter(
-      (s) => s.status === 'complete' && s.metadata?.campaign === 'rfs-april-2026'
-    )) {
+    for (const session of sessions.data.filter((s) => {
+      if (s.status !== 'complete') return false
+      if (s.metadata?.campaign === 'rfs-april-2026') return true
+      const pi = s.payment_intent && typeof s.payment_intent === 'object' ? s.payment_intent as Stripe.PaymentIntent : null
+      return pi?.metadata?.campaign === 'rfs-april-2026'
+    })) {
       const amount = (session.amount_total || 0) / 100
       totalRaised += amount
 
