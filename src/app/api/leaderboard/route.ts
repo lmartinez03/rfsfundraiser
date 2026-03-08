@@ -60,8 +60,10 @@ export async function GET() {
       donorMap.set(key, (donorMap.get(key) || 0) + amount)
       displayMap.set(key, name)
 
-      if (!messageMap.has(key) && session.metadata?.donor_message) {
-        messageMap.set(key, session.metadata.donor_message)
+      const piMessage = pi?.metadata?.donor_message
+      const sessionMessage = session.metadata?.donor_message
+      if (!messageMap.has(key) && (piMessage || sessionMessage)) {
+        messageMap.set(key, (piMessage || sessionMessage)!)
       }
     }
 
