@@ -7,7 +7,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
 
 export async function POST(request: NextRequest) {
   try {
-    const { amount, type, name, message } = await request.json()
+    const { amount, type, name, message, emailOptIn } = await request.json()
 
     if (!amount || typeof amount !== 'number' || amount < 1) {
       return NextResponse.json({ error: 'Invalid amount' }, { status: 400 })
@@ -24,6 +24,9 @@ export async function POST(request: NextRequest) {
     }
     if (message && typeof message === 'string' && message.trim()) {
       metadata.donor_message = message.trim().slice(0, 500)
+    }
+    if (emailOptIn === true) {
+      metadata.email_opt_in = 'true'
     }
 
     if (type === 'monthly') {
@@ -45,7 +48,7 @@ export async function POST(request: NextRequest) {
             quantity: 1,
           },
         ],
-        success_url: `${baseUrl}/?donation=success`,
+        success_url: `${baseUrl}/?donation=success&session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${baseUrl}/#donate`,
         metadata,
       })
@@ -70,7 +73,7 @@ export async function POST(request: NextRequest) {
             quantity: 1,
           },
         ],
-        success_url: `${baseUrl}/?donation=success`,
+        success_url: `${baseUrl}/?donation=success&session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${baseUrl}/#donate`,
         metadata,
         payment_intent_data: { metadata },

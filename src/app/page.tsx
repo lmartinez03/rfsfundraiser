@@ -269,8 +269,17 @@ function DonateSection({ raised, goal }: { raised: number; goal: number }) {
   const [customAmount, setCustomAmount] = useState('')
   const [donorName, setDonorName] = useState('')
   const [donorMessage, setDonorMessage] = useState('')
+  const [emailOptIn, setEmailOptIn] = useState(true)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    const handlePageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) setLoading(false)
+    }
+    window.addEventListener('pageshow', handlePageShow)
+    return () => window.removeEventListener('pageshow', handlePageShow)
+  }, [])
 
   const presets = [10, 25, 50, 100]
   const progress = Math.min((raised / goal) * 100, 100)
@@ -296,7 +305,7 @@ function DonateSection({ raised, goal }: { raised: number; goal: number }) {
       const res = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount, type: 'one-time', name: donorName.trim() || 'Anonymous', message: donorMessage.trim() }),
+        body: JSON.stringify({ amount, type: 'one-time', name: donorName.trim() || 'Anonymous', message: donorMessage.trim(), emailOptIn }),
       })
 
       if (!res.ok) throw new Error('Failed to create session')
@@ -441,6 +450,19 @@ function DonateSection({ raised, goal }: { raised: number; goal: number }) {
               />
             </div>
 
+            {/* Newsletter opt-in */}
+            <label className="flex items-center gap-3 mb-5 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={emailOptIn}
+                onChange={(e) => setEmailOptIn(e.target.checked)}
+                className="w-4 h-4 accent-amber-400 cursor-pointer flex-shrink-0"
+              />
+              <span className="font-montserrat text-white/55 text-xs">
+                Subscribe to email updates about this campaign
+              </span>
+            </label>
+
             {/* Donate button */}
             <button
               onClick={handleDonate}
@@ -489,7 +511,7 @@ function LeaderboardSection({ donors }: { donors: Donor[] }) {
 
             {donors.length > 0 ? (
               <div className="space-y-3">
-                {donors.map((donor, i) => (
+                {donors.slice(0, 10).map((donor, i) => (
                   <div
                     key={i}
                     className="flex items-center gap-4 bg-white/5 border border-white/10 hover:border-amber-400/40 rounded-xl px-6 py-4 transition-colors duration-200"
@@ -1109,8 +1131,12 @@ export default function FundraiserPage() {
     const params = new URLSearchParams(window.location.search)
     if (params.get('donation') === 'success') {
       setShowSuccess(true)
+      const sessionId = params.get('session_id')
       window.history.replaceState({}, '', '/')
       setTimeout(fetchCampaignData, 2000)
+      if (sessionId) {
+        fetch(`/api/donation-success?session_id=${sessionId}`).catch(() => {})
+      }
     }
   }, [fetchCampaignData])
 
