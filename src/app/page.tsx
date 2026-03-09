@@ -664,7 +664,7 @@ function HowItWorksSection() {
   ]
 
   return (
-    <section id="how-it-works" className="bg-forest-mid py-20 md:py-28">
+    <section id="how-it-works" className="bg-forest-mid pt-20 md:pt-28 pb-10 md:pb-14">
       <div className="max-w-6xl mx-auto px-6 lg:px-10">
         <div className="text-center mb-16 reveal">
           <span className="inline-block font-montserrat text-xs font-bold text-amber-400 uppercase tracking-[0.3em] mb-4">
@@ -753,13 +753,13 @@ function WhyHowWhereSection() {
   const current = content[active]
 
   return (
-    <section className="bg-forest-dark py-20 md:py-28">
+    <section className="bg-forest-mid pb-20 md:pb-28">
       <div className="max-w-5xl mx-auto px-6 lg:px-10">
-        {/* Preload all tab photos so switching is instant */}
-        <div className="hidden" aria-hidden="true">
-          <Image src="/images/why.JPG" alt="" width={500} height={375} quality={95} />
-          <Image src="/images/how.JPG" alt="" width={500} height={375} quality={95} />
-          <Image src="/images/where.png" alt="" width={500} height={375} quality={95} />
+        {/* Preload all tab photos eagerly so there's no loading flash */}
+        <div className="absolute w-px h-px overflow-hidden opacity-0 pointer-events-none" aria-hidden="true">
+          <Image src="/images/why.JPG" alt="" width={500} height={375} quality={95} priority />
+          <Image src="/images/how.JPG" alt="" width={500} height={375} quality={95} priority />
+          <Image src="/images/where.png" alt="" width={500} height={375} quality={95} priority />
         </div>
 
         {/* Tab buttons */}
