@@ -6,7 +6,7 @@ import { loadStripe } from '@stripe/stripe-js'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '')
 
-const GOAL = 1000
+const GOAL = 1250
 
 // ════════════════════════════════════════════════════
 // TYPES
@@ -355,7 +355,7 @@ function DonateSection({ raised, goal }: { raised: number; goal: number }) {
             </div>
             <div className="flex justify-between font-montserrat text-white/50 text-xs mb-3">
               <span>{progress.toFixed(0)}% of goal reached</span>
-              <span>${(goal - raised).toLocaleString()} remaining</span>
+              <span>${Math.max(0, goal - raised).toLocaleString()} remaining</span>
             </div>
 
             <p className="font-montserrat text-white/80 text-base leading-relaxed mb-4">
@@ -1046,9 +1046,9 @@ function Footer() {
         <div>
           <h4 className="font-montserrat font-bold text-white text-sm tracking-widest uppercase mb-6">Contact</h4>
           <p className="font-montserrat text-white/50 text-sm mb-2">Questions or feedback?</p>
-          <a href="mailto:readyforschoolperu@gmail.com"
+          <a href="mailto:readyforschoolnonprofit@gmail.com"
             className="font-montserrat text-amber-400/80 hover:text-amber-400 text-sm transition-colors duration-200">
-            readyforschoolperu@gmail.com
+            Readyforschoolnonprofit@gmail.com
           </a>
           <div className="mt-8">
             <p className="font-montserrat text-white/50 text-xs uppercase tracking-widest mb-3">Email Updates</p>
