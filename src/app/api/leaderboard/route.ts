@@ -26,7 +26,7 @@ export async function GET() {
     }
 
     if (!process.env.STRIPE_SECRET_KEY) {
-      return NextResponse.json({ raised: 0, goal: 1000, donors: [] })
+      return NextResponse.json({ raised: 0, goal: 1250, donors: [] })
     }
 
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
@@ -80,7 +80,7 @@ export async function GET() {
 
     const data: CacheData = {
       raised: Math.round(totalRaised * 100) / 100,
-      goal: 1000,
+      goal: 1250,
       donors,
     }
 
@@ -89,6 +89,6 @@ export async function GET() {
   } catch (err) {
     console.error('Leaderboard error:', err)
     // Return safe fallback on error
-    return NextResponse.json({ raised: 0, goal: 1000, donors: [] })
+    return NextResponse.json({ raised: 0, goal: 1250, donors: [] })
   }
 }
