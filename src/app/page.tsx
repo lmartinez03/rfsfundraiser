@@ -6,7 +6,7 @@ import { loadStripe } from '@stripe/stripe-js'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '')
 
-const GOAL = 1250
+const GOAL = 1000
 
 // ════════════════════════════════════════════════════
 // TYPES
@@ -361,7 +361,7 @@ function DonateSection({ raised, goal }: { raised: number; goal: number }) {
             <p className="font-montserrat text-white/80 text-base leading-relaxed mb-4">
               With your support, we can provide books and backpacks and give the gift of
               reading to children who need it most. To meet this challenge, we&apos;ve set up
-              this campaign with a goal of $1,250. Every donation makes a difference.
+              this campaign with a goal of $1,000. Every donation makes a difference.
             </p>
 
             {/* Impact grid */}
@@ -729,7 +729,7 @@ function WhyHowWhereSection() {
       paragraphs: [
         '100% of every donation goes directly to purchasing school supplies. Our volunteers personally cover all travel and operating costs, so your gift reaches the children — not overhead.',
         '$10 provides a book and pencils. $25 fills a complete backpack with everything a student needs. $50 equips a child for the entire school year. Every dollar has a direct, measurable impact on a real child.',
-        'Once our $1,250 goal is reached, we purchase the supplies in bulk, pack everything up, and our team personally flies to Peru to hand-deliver them to schools in remote communities.',
+        'Once our $1,000 goal is reached, we purchase the supplies in bulk, pack everything up, and our team personally flies to Peru to hand-deliver them to schools in remote communities.',
       ],
       photo: '/images/how.JPG',
       photoAlt: 'School supplies being prepared',
